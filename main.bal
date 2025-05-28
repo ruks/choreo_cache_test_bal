@@ -49,3 +49,26 @@ service / on httpListener {
         };
     }
 }
+
+public function main() returns error? {
+    log:printInfo("Starting Redis ping loop (every 10s) and HTTP listener…");
+
+    // Start the HTTP listener in the background
+    _ = start httpListener.listen();
+
+    if pingInterval == 0{
+        log:printInfo("PING_INTERVAL=0, skipping Redis ping loop.");
+        return;
+    }
+    // Ping loop
+    while true {
+        string|error res = redisClient->ping();
+        if res is error {
+            log:printError("Redis ping failed", res);
+        } else {
+            log:printInfo("Redis ping response: " + res);
+        }
+        // Sleep for 10 seconds
+        time:sleep(time:seconds(pingInterval));
+    }
+}
