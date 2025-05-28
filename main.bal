@@ -1,7 +1,7 @@
 import ballerina/http;
 import ballerina/log;
 import ballerina/os;
-import ballerina/time;
+import ballerina/lang.runtime;
 import ballerinax/redis;
 
 configurable string redisHost = "valkey-aca47945a34b44d281f98ba5876d9396-redis11497295657-choreo.h.aivencloud.com";
@@ -71,6 +71,6 @@ public function main() returns error? {
             log:printInfo("Redis ping response: " + res);
         }
         // Sleep for 10 seconds
-        time:sleep(time:seconds(pingInterval));
+        runtime:sleep(pingInterval);
     }
 }
