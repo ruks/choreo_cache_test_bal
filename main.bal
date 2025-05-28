@@ -6,6 +6,7 @@ import ballerinax/redis;
 configurable string redisHost = "valkey-aca47945a34b44d281f98ba5876d9396-redis11497295657-choreo.h.aivencloud.com";
 configurable int redisPort = 12079;
 configurable string redisPassword = ?;
+configurable int pingInterval = ?;
 
 redis:SecureSocket redisSecureSocket = {
     verifyMode: redis:FULL
