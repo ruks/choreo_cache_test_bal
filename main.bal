@@ -16,7 +16,7 @@ redis:ConnectionConfig redisConfig = {
     connection: {
         host: redisHost,
         port: redisPort,
-        username: "default",
+        // username: "default",
         password: redisPassword,
         options: {
             connectionTimeout: 5
