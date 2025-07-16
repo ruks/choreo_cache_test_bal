@@ -1,4 +1,6 @@
-FROM choreowbcuserappsescargot.azurecr.io/ballerina-central/v2/base:latest AS ballerina-tools-build
+
+# FROM choreowbcuserappsescargot.azurecr.io/ballerina-central/v2/base:latest AS ballerina-tools-build
+FROM ballerina/ballerina:2201.12.4 AS ballerina-tools-build
 LABEL maintainer "ballerina.io"
 
 USER root
