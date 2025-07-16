@@ -1,7 +1,7 @@
 
 # FROM choreowbcuserappsescargot.azurecr.io/ballerina-central/v2/base:latest AS ballerina-tools-build
-FROM ballerina/ballerina:2201.12.4 AS ballerina-tools-build
-LABEL maintainer "ballerina.io"
+FROM ballerina/ballerina:2201.12.2 AS ballerina-tools-build
+LABEL maintainer="ballerina.io"
 
 USER root
 
@@ -10,7 +10,7 @@ WORKDIR /home/work-dir/choreo_cache_test
 
 RUN bal build
 
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:21-jre-alpine
 
 RUN mkdir -p /work-dir \
     && addgroup troupe \
