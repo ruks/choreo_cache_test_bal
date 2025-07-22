@@ -1,5 +1,4 @@
 import ballerina/http;
-import ballerina/lang.runtime;
 import ballerina/log;
 import ballerinax/redis;
 
@@ -30,7 +29,7 @@ final redis:Client redisClient = check new (redisConfig);
 
 listener http:Listener httpListener = check new (2020);
 
-http:Service s = service object {
+service / on httpListener {
     isolated resource function get cache\-item() returns http:Ok|http:InternalServerError {
         string message = "Hello, World!";
         string?|error cachedMessage = redisClient->get("hello");
@@ -52,26 +51,3 @@ http:Service s = service object {
     }
 };
 
-public function main() returns error? {
-    log:printInfo("Starting Redis ping loop (every 10s) and HTTP listener…");
-
-    // Start the HTTP listener in the background
-    check httpListener.attach(s, "/");
-    check httpListener.start();
-
-    if pingInterval == 0 {
-        log:printInfo("PING_INTERVAL=0, skipping Redis ping loop.");
-        return;
-    }
-    // Ping loop
-    while true {
-        string|error res = redisClient->ping();
-        if res is error {
-            log:printError("Redis ping failed", res);
-        } else {
-            log:printInfo("Redis ping response: " + res);
-        }
-        // Sleep for 10 seconds
-        runtime:sleep(<decimal>pingInterval);
-    }
-}
